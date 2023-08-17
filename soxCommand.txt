@@ -1,0 +1,1 @@
+sox Zip610.wav -e floating-point -r 16000 -b 32 noise.wav
