@@ -13,3 +13,5 @@ This is a itsy bitsy demo app to test YAMNET in browser with Tensorflow js. [Yam
 This is to test creating spectrograms and auto sorting features for an online sample pack creator I'm working on. I want to try using the embeddings to do K-nearest neighbor analysis to find the most different sounds in a user's uploaded recordings. The thinking here is that the most different sounds could be the most special, but it remains to be seen.
 
 I would also like to explore using earlier convolution steps to categorize the personality or adjective tag of the sample and use the final embedding to detect the broader class, i.e. spicy kick, sassy snare, sharp high-hat.
+
+![yamnet test screenshot](yamnet_test_screenshot.png)
