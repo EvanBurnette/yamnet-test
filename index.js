@@ -24,15 +24,31 @@ const [scores, embeddings, spectrogram] = model.predict(waveform);
 scores.print(true); // shape [N, 521]
 embeddings.print(true); // shape [N, 1024]
 // spectrogram.print(true); // shape [M, 64] // Find class with the top score when mean-aggregated across frames.
-console.log(await scores.mean(0).argMax().array()); // Should print 494 corresponding to 'Silence' in YAMNet Class Map.
+console.log("class number: ", await scores.mean(0).argMax().array()); // Should print 494 corresponding to 'Silence' in YAMNet Class Map.
+
+const top10 = await tf.topk(scores.mean(0), 10, true).indices.array();
+console.log("scores mean topk k=10", top10);
+
+let top10classes = "";
+for (const i of top10) {
+  top10classes += "\n";
+  top10classes += classes[i];
+}
 
 const predict_p = document.getElementById("predict");
-predict_p.innerText = classes[await scores.mean(0).argMax().array()];
+predict_p.innerText = top10classes;
+
+console.log("scores shape: ", scores.shape);
+scores.print();
+
+// const { values, indices } = tf.topk(scores.mean(0));
+// values.print();
+// indices.print();
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-console.log(await tf.max(spectrogram).array());
+console.log("maximum value :", await tf.max(spectrogram).array());
 // console.log(await spectrogram.array());
 
 const spectrogram_scaled = await normalize(spectrogram)
