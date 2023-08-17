@@ -51,9 +51,10 @@ const ctx = canvas.getContext("2d");
 console.log("maximum value :", await tf.max(spectrogram).array());
 // console.log(await spectrogram.array());
 
-const spectrogram_scaled = await normalize(spectrogram)
-  .NORMALIZED_VALUES.square()
-  .square();
+const spectrogram_scaled = await tf
+  .transpose(await normalize(spectrogram).NORMALIZED_VALUES, [1, 0])
+  .square()
+  .reverse(0);
 
 tf.browser.toPixels(spectrogram_scaled, canvas);
 // console.log(await spectrogram_scaled.array());
